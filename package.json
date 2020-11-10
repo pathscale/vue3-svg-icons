@@ -1,6 +1,6 @@
 {
   "name": "@pathscale/vue3-svg-icons",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Mega compilation of svg icons. Ever get tired of all that stupid bloat from other icon packages?",
   "keywords": [
     "vue",

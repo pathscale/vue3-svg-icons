@@ -61,7 +61,7 @@ export default (options: Options = {}): Plugin => {
         const file = await this.resolve(tag.attribs.src, id, {
           skipSelf: true,
         });
-        if (!file) this.error("SVG FILE NOT FOUND");
+        if (!file) this.error(`SVG FILE NOT FOUND: ${tag.attribs.src}, ${id}`);
 
         const svgSource = await fs.readFile(file.id, "utf8");
 
