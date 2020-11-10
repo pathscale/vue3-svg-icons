@@ -22,7 +22,15 @@
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "files": [
-    "dist"
+    "dist",
+    "devicon",
+    "feather",
+    "Font-Awesome",
+    "google-material-design-icons",
+    "jam",
+    "mdi",
+    "octicons",
+    "simple-icons"
   ],
   "scripts": {
     "prebuild": "shx rm -rf dist",
