@@ -53,15 +53,16 @@ export default (options: Options = {}): Plugin => {
       if (tags.length === 0) return null;
 
       tags.map(async (_, tag) => {
-        if (!tag.attribs) return;
+        if (!tag.attribs || !("src" in tag.attribs)) return;
 
-        if (!("src" in tag.attribs) || !("bundle" in tag.attribs) || !("name" in tag.attribs))
-          this.error("wrong props passed to v-icon")
+        if (!("bundle" in tag.attribs) || !("name" in tag.attribs)) {
+          this.error(`Wrong props passed to v-icon (bundle and name are required): ${tag.attribs.src}, ${id}`)
+        }
 
         const file = await this.resolve(tag.attribs.src, id, {
           skipSelf: true,
         });
-        if (!file) this.error(`SVG FILE NOT FOUND: ${tag.attribs.src}, ${id}`);
+        if (!file) this.error(`SVG file not found: ${tag.attribs.src}, ${id}`);
 
         const svgSource = await fs.readFile(file.id, "utf8");
 
