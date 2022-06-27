@@ -1,6 +1,3 @@
-import { createFilter } from "@rollup/pluginutils";
-import { Options } from "./types";
-import { parseQuery } from "./utils";
 import { Plugin } from "rollup";
 import cheerio from "cheerio";
 import fs from "fs-extra";
@@ -31,8 +28,7 @@ const createSprite = (bundle: string, _symbols: Array<TSymbol>) => {
 };
 
 // plugin
-export default (options: Options = {}): Plugin => {
-  const isIncluded = createFilter(options.include, options.exclude);
+export default (): Plugin => {
   const bundles = new Set();
   const symbols: Array<TSymbol> = [];
 
@@ -40,12 +36,6 @@ export default (options: Options = {}): Plugin => {
     name: "vue3-svg-icons",
 
     transform(code: string, id: string) {
-      const query = parseQuery(id);
-
-      if (!query.vue) return null;
-      if (!isIncluded(id)) return null;
-      if (query.type !== "template") return null;
-
       const $ = cheerio.load(code);
       const tags = $("v-icon");
 
@@ -56,7 +46,9 @@ export default (options: Options = {}): Plugin => {
         if (!tag.attribs || !("src" in tag.attribs)) return;
 
         if (!("bundle" in tag.attribs) || !("name" in tag.attribs)) {
-          this.error(`Wrong props passed to v-icon (bundle and name are required): ${tag.attribs.src}, ${id}`)
+          this.error(
+            `Wrong props passed to v-icon (bundle and name are required): ${tag.attribs.src}, ${id}`,
+          );
         }
 
         const file = await this.resolve(tag.attribs.src, id, {

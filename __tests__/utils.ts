@@ -40,7 +40,7 @@ export async function write(data: WriteData): Promise<WriteResult> {
   const bundle = await rollup({
     ...data.inputOpts,
     input,
-    plugins: [plugin({ ...data.options, debug: true }), vue()],
+    plugins: [plugin(), vue()],
     onwarn: (warning, warn) => {
       if (warning.message.includes("'vue'")) {
         if (warning.code === "UNUSED_EXTERNAL_IMPORT") return;
