@@ -38,8 +38,8 @@
     "commit": "commit",
     "prelint": "prettier -l --write .",
     "lint": "eslint --ext .ts,.js --fix .",
-    "prepublishOnly": "npm run build",
-    "pretest": "npm run lint",
+    "prepublishOnly": "bun run build",
+    "pretest": "bun run lint",
     "test": "jest"
   },
   "dependencies": {
